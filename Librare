@@ -7,6 +7,25 @@ function LIB:getMoney()
     return LocalPlayer:WaitForChild("leaderstats"):WaitForChild("Money").Value
 end
 
-  
+function LIB:waitForNewTower()
+    return workspace.Towers.ChildAdded:Wait()
+end
+
+function LIB:playAgain()
+    ReplicatedStorage:WaitForChild("BridgeNet2", 9e9):WaitForChild("dataRemoteEvent", 9e9):FireServer({{"PlayAgain"}, ""})
+end
+
+function LIB:playNow(mode)
+    ReplicatedStorage:WaitForChild("BridgeNet2"):WaitForChild("dataRemoteEvent"):FireServer({{"Mode", mode}, ""})
+end
+function LIB:speeds(speed)
+    ReplicatedStorage:WaitForChild("BridgeNet2"):WaitForChild("dataRemoteEvent"):FireServer({{speed}, ""})
+end
+
+local function placeTower(tower, pos)
+    ReplicatedStorage:WaitForChild("BridgeNet2"):WaitForChild("dataRemoteEvent"):FireServer({{"Place", tower, pos, 0}, ""})
+    local newTower = waitForNewTower()
+    upgradeTowerUntilMax(newTower)
+end
 
 return LIB
