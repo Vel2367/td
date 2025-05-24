@@ -1,5 +1,12 @@
 local LIB = {}
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
 
+function LIB:getMoney()
+    return LocalPlayer:WaitForChild("leaderstats"):WaitForChild("Money").Value
+end
 
+  
 
 return LIB
